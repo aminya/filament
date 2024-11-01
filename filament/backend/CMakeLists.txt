@@ -409,6 +409,8 @@ install(DIRECTORY ${PUBLIC_HDR_DIR}/backend DESTINATION include)
 # ==================================================================================================
 # Test
 # ==================================================================================================
+if(FILAMENT_TESTS)
+
 option(INSTALL_BACKEND_TEST "Install the backend test library so it can be consumed on iOS" OFF)
 
 if (APPLE OR LINUX)
@@ -522,7 +524,7 @@ endif()
 # ==================================================================================================
 # Metal utils tests
 
-if (APPLE AND NOT IOS)
+if (FILAMENT_TESTS AND APPLE AND NOT IOS)
 
 add_executable(metal_utils_test test/MetalTest.mm)
 
@@ -537,3 +539,5 @@ target_link_libraries(metal_utils_test PRIVATE
 set_target_properties(metal_utils_test PROPERTIES FOLDER Tests)
 
 endif()
+
+endif(FILAMENT_TESTS)

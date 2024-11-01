@@ -222,6 +222,7 @@ endif()
 # Tests
 # ==================================================================================================
 
+if(FILAMENT_TESTS)
 set(GLTF_TEST_FILES)
 function(add_test_gltf SOURCE TARGET)
     set(source_path "${ROOT_DIR}/${SOURCE}")
@@ -253,6 +254,7 @@ if (TNT_DEV AND NOT WEBGL AND NOT ANDROID AND NOT IOS)
         target_compile_options(${TEST_TARGET} PRIVATE ${GLTFIO_WARNINGS})
     endif()
     set_target_properties(${TEST_TARGET} PROPERTIES FOLDER Tests)
+endif()
 endif()
 
 # ==================================================================================================
