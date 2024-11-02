@@ -22,7 +22,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warray-bounds"
-#include <basisu_comp.h>
+#include <basisu/encoder/basisu_comp.h>
 #pragma clang diagnostic pop
 
 namespace image {
@@ -181,7 +181,7 @@ BasisEncoder* Builder::build() {
     params.m_read_source_images = false;
 
     // We do not want basis to write the file, we want to manually dump "get_output_ktx2_file()"
-    params.m_write_output_basis_files = false;
+    params.m_write_output_basis_or_ktx2_files = false;
 
     basisu::basis_compressor* encoder = new basisu::basis_compressor();
 

@@ -82,7 +82,7 @@ static void fillParams(basisu::basis_compressor_params& params, const char* inpu
 	}
 
 	params.m_read_source_images = true;
-	params.m_write_output_basis_files = true;
+	params.m_write_output_basis_or_ktx2_files = true;
 
 	params.m_source_filenames.resize(1);
 	params.m_source_filenames[0] = input;

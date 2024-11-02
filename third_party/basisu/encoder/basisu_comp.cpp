@@ -1448,7 +1448,7 @@ namespace basisu
 		debug_printf("basis_compressor::write_output_files_and_compute_stats\n");
 
 		const uint8_vec& comp_data = m_params.m_create_ktx2_file ? m_output_ktx2_file : m_basis_file.get_compressed_data();
-		if (m_params.m_write_output_basis_files)
+		if (m_params.m_write_output_basis_or_ktx2_files)
 		{
 			const std::string& output_filename = m_params.m_out_filename;
 
@@ -2282,7 +2282,7 @@ namespace basisu
 		comp_params.m_multithreading = (flags_and_quality & cFlagThreaded) != 0;
 		comp_params.m_use_opencl = (flags_and_quality & cFlagUseOpenCL) != 0;
 
-		comp_params.m_write_output_basis_files = false;
+		comp_params.m_write_output_basis_or_ktx2_files = false;
 
 		comp_params.m_perceptual = (flags_and_quality & cFlagSRGB) != 0;
 		comp_params.m_mip_srgb = comp_params.m_perceptual;

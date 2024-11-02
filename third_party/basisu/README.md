@@ -265,7 +265,7 @@ bool test()
 	basisCompressorParams.m_perceptual = false;
 	basisCompressorParams.m_mip_srgb = false;
 
-	basisCompressorParams.m_write_output_basis_files = true;
+	basisCompressorParams.m_write_output_basis_or_ktx2_files = true;
 	basisCompressorParams.m_out_filename = "test.basis";
 
 	basisCompressorParams.m_uastc = true;

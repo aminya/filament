@@ -26,7 +26,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warray-bounds"
-#include <basisu_transcoder.h>
+#include <basisu/transcoder/basisu_transcoder.h>
 #pragma clang diagnostic pop
 
 using namespace basist;

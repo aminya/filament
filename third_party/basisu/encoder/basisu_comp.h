@@ -368,10 +368,10 @@ namespace basisu
 		// Read source images from m_source_filenames/m_source_alpha_filenames
 		bool_param<false> m_read_source_images;
 
-		// Write the output basis file to disk using m_out_filename
-		bool_param<false> m_write_output_basis_files;
-								
-		// Compute and display image metrics 
+        // Write the output basis/ktx2 file to disk using m_out_filename
+        bool_param<false> m_write_output_basis_or_ktx2_files;
+
+        // Compute and display image metrics
 		bool_param<false> m_compute_stats;
 		
 		// Check to see if any input image has an alpha channel, if so then the output basis file will have alpha channels

@@ -1054,8 +1054,8 @@ static bool compress_mode(command_line_params &opts)
 	}
 
 	params.m_read_source_images = true;
-	params.m_write_output_basis_files = true;
-	params.m_pGlobal_codebooks = pGlobal_codebook_data ? &pGlobal_codebook_data->m_transcoder.get_lowlevel_etc1s_decoder() : nullptr; 
+	params.m_write_output_basis_or_ktx2_files = true;
+	params.m_pGlobal_codebooks = pGlobal_codebook_data ? &pGlobal_codebook_data->m_transcoder.get_lowlevel_etc1s_decoder() : nullptr;
 	FILE *pCSV_file = nullptr;
 	if (opts.m_csv_file.size())
 	{
