@@ -21,7 +21,12 @@
 #include <utils/Panic.h>
 
 #include <meshoptimizer.h>
+
+#if __has_include(<mikktspace/mikktspace.h>)
 #include <mikktspace/mikktspace.h>
+#else
+#include <mikktspace.h>
+#endif
 
 #include <vector>
 
