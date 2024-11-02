@@ -25,7 +25,7 @@
 
 #include <filamat/MaterialBuilder.h>
 
-#include <ShaderLang.h>
+#include <glslang/Public/ShaderLang.h>
 
 class TIntermNode;
 

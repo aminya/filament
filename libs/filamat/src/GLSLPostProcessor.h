@@ -26,7 +26,7 @@
 
 #include <spirv-tools/optimizer.hpp>
 
-#include <ShaderLang.h>
+#include <glslang/Public/ShaderLang.h>
 
 #include <backend/DriverEnums.h>
 

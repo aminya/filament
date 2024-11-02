@@ -16,8 +16,8 @@
 
 #include "ShaderGenerator.h"
 
-#include <GlslangToSpv.h>
-#include <SPVRemapper.h>
+#include <glslang/SPIRV/GlslangToSpv.h>
+#include <glslang/SPIRV/SPVRemapper.h>
 
 #include <spirv_glsl.hpp>
 #include <spirv_msl.hpp>

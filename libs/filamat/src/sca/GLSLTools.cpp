@@ -25,8 +25,8 @@
 #include "ASTHelpers.h"
 
 // GLSLANG headers
-#include <InfoSink.h>
-#include <localintermediate.h>
+#include <glslang/Include/InfoSink.h>
+#include <glslang/SPIRV/localintermediate.h>
 
 #include "builtinResource.h"
 

@@ -19,7 +19,7 @@
 
 #include <string>
 #include <vector>
-#include <intermediate.h>
+#include <glslang/Include/intermediate.h>
 
 class TIntermNode;
 

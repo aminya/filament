@@ -18,8 +18,8 @@
 
 #include "GLSLTools.h"
 
-#include <intermediate.h>
-#include <localintermediate.h>
+#include <glslang/Include/intermediate.h>
+#include <glslang/SPIRV/localintermediate.h>
 
 #include <utils/Log.h>
 
