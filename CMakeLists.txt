@@ -14,7 +14,7 @@ endif()
 # ==================================================================================================
 # Project declaration
 # ==================================================================================================
-project(TNT)
+project(filament VERSION 1.55.0)
 
 # ==================================================================================================
 # Options
@@ -914,7 +914,51 @@ if (IS_HOST_PLATFORM)
     add_subdirectory(${TOOLS}/uberz)
 endif()
 
-# Generate exported executables for cross-compiled builds (Android, WebGL, and iOS)
-if (NOT CMAKE_CROSSCOMPILING)
-    export(TARGETS matc cmgen filamesh mipgen resgen uberz glslminifier FILE ${IMPORT_EXECUTABLES})
-endif()
+# version file
+include(CMakePackageConfigHelpers)
+include(GNUInstallDirs)
+write_basic_package_version_file("${CMAKE_BINARY_DIR}/filamentConfigVersion.cmake"
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion)
+install(FILES "${CMAKE_BINARY_DIR}/filamentConfigVersion.cmake"
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/filament
+    COMPONENT filament)
+
+# public header dependencies
+set(HEADER_DEPS cgltf jsmn SPIRV-Headers)
+foreach(_dep ${HEADER_DEPS})
+    get_target_property(_dep_include ${_dep} INTERFACE_INCLUDE_DIRECTORIES)
+    set_target_properties(${_dep} PROPERTIES INTERFACE_INCLUDE_DIRECTORIES
+        "$<BUILD_INTERFACE:${_dep_include}>$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+    )
+endforeach()
+install(TARGETS ${HEADER_DEPS} EXPORT filament-targets COMPONENT filament-dependencies)
+export(TARGETS ${HEADER_DEPS}
+    NAMESPACE filament::
+    FILE "${CMAKE_BINARY_DIR}/filamentTargets-Dependencies.cmake")
+
+# config file
+set(PACKAGE_VERSION ${PROJECT_VERSION})
+configure_package_config_file("${CMAKE_CURRENT_LIST_DIR}/filamentConfig.cmake.in"
+    "${CMAKE_BINARY_DIR}/filamentConfig.cmake"
+    INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/filament)
+install(FILES "${CMAKE_BINARY_DIR}/filamentConfig.cmake"
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/filament
+    COMPONENT filament)
+
+# targets file
+set(TARGETS camutils filabridge filaflat filagui filameshio uberarchive gltfio_core gltfio ibl ibl-lite filament-iblprefilter
+    image ktxreader math mathio uberzlib utils viewer backend backend_headers vkshaders backend_test_linux filament
+    shaders geometry filamat matdbg_resources matdbg bluevk bluegl imageio cmgen cso-lut filamesh glslminifier matlang
+    matc matinfo matedit mipgen normal-blending resgen rgb-to-lmsr roughness-prefilter specular-color uberz
+    getopt smol-v vkmemalloc)
+install(TARGETS ${TARGETS} EXPORT filament-targets COMPONENT filament)
+export(TARGETS ${TARGETS}
+    NAMESPACE filament::
+    FILE "${CMAKE_BINARY_DIR}/filamentTargets.cmake")
+export(PACKAGE filament)
+install(EXPORT filament-targets
+    NAMESPACE filament::
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/filament
+    FILE "filamentTargets.cmake"
+    COMPONENT filament)
