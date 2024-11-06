@@ -28,6 +28,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include <cstring>
 
 using namespace filament;
 using namespace filament::gltfio;

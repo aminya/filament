@@ -15,6 +15,7 @@
  */
 
 #include <string>
+#include <cstdint>
 
 #ifndef TNT_GLSLMINIFY_H
 #define TNT_GLSLMINIFY_H
