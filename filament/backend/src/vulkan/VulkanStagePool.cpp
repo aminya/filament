@@ -105,7 +105,7 @@ VulkanStageImage const* VulkanStagePool::acquireImage(PixelDataFormat format, Pi
         .usage = VMA_MEMORY_USAGE_CPU_TO_GPU
     };
 
-    const UTILS_UNUSED VkResult result = vmaCreateImage(mAllocator, &imageInfo, &allocInfo,
+    UTILS_UNUSED const VkResult result = vmaCreateImage(mAllocator, &imageInfo, &allocInfo,
             &image->image, &image->memory, nullptr);
 
     assert_invariant(result == VK_SUCCESS);

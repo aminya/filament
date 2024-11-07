@@ -264,6 +264,9 @@ set(TOOLS ${CMAKE_CURRENT_SOURCE_DIR}/tools)
 # ==================================================================================================
 # Compiler check
 # ==================================================================================================
+option(FILAMENT_ALLOW_ANY_COMPILER "Allow building with any compiler" TRUE)
+
+if(NOT FILAMENT_ALLOW_ANY_COMPILER)
 set(MIN_CLANG_VERSION "6.0")
 
 if (CMAKE_C_COMPILER_ID MATCHES "Clang")
@@ -288,6 +291,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
         message(FATAL_ERROR "Building with Clang on Windows is no longer supported. Use MSVC 2019 instead.")
     endif()
 endif()
+endif()
 
 # ==================================================================================================
 # Link time optimizations (LTO)
@@ -306,16 +310,16 @@ endif()
 # ==================================================================================================
 # General compiler flags
 # ==================================================================================================
-set(CXX_STANDARD "-std=c++17")
-if (WIN32)
-    set(CXX_STANDARD "/std:c++17")
-endif()
+set(CMAKE_CXX_STANDARD 17)
 
 if (MSVC)
     set(CXX_STANDARD "/std:c++latest")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_STANDARD} /W0 /Zc:__cplusplus")
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_STANDARD} -fstrict-aliasing -Wno-unknown-pragmas -Wno-unused-function -Wno-deprecated-declarations")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-pragmas -Wno-unused-function -Wno-deprecated-declarations")
+    if(CMAKE_CXX_COMPILER_ID STREQUAL Clang OR CMAKE_CXX_COMPILER_ID STREQUAL AppleClang)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstrict-aliasing")
+    endif()
 endif()
 
 if (FILAMENT_USE_EXTERNAL_GLES3)
@@ -361,10 +365,18 @@ if (MSVC)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE")
 endif()
 
-# Add colors to ninja builds
-if (UNIX AND CMAKE_GENERATOR STREQUAL "Ninja")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fcolor-diagnostics")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics")
+# Enhance error reporting and compiler messages
+if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
+    add_compile_options(
+        $<$<COMPILE_LANGUAGE:C>:-fcolor-diagnostics> $<$<COMPILE_LANGUAGE:CXX>:-fcolor-diagnostics>
+    )
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_compile_options(
+        $<$<COMPILE_LANGUAGE:C>:-fdiagnostics-color=always>
+        $<$<COMPILE_LANGUAGE:CXX>:-fdiagnostics-color=always>
+    )
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" AND MSVC_VERSION GREATER 1900)
+    add_compile_options(/diagnostics:column)
 endif()
 
 # Use hidden by default and expose what we need.

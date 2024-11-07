@@ -377,12 +377,16 @@ if (MSVC)
 else()
     set(FILAMENT_WARNINGS
             -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
-            -Wextra-semi -Wnewline-eof -Wdeprecated -Wundef
-            -Wgnu-conditional-omitted-operand
-            -Wweak-vtables -Wnon-virtual-dtor -Wclass-varargs -Wimplicit-fallthrough
-            -Wover-aligned
-            -Werror
+            -Wextra-semi -Wdeprecated -Wundef
+            -Wnon-virtual-dtor -Wimplicit-fallthrough
     )
+    if(CMAKE_CXX_COMPILER_ID STREQUAL Clang OR CMAKE_CXX_COMPILER_ID STREQUAL AppleClang)
+        list(APPEND FILAMENT_WARNINGS
+            -Wnewline-eof -Wweak-vtables -Wclass-varargs -Wover-aligned
+            -Wgnu-conditional-omitted-operand
+            -Werror
+        )
+    endif()
 endif()
 
 if (APPLE)
