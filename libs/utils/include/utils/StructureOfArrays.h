@@ -690,7 +690,7 @@ typename StructureOfArraysBase<Allocator, Elements...>::IteratorValueRef&
 StructureOfArraysBase<Allocator, Elements...>::IteratorValueRef::assign(
         StructureOfArraysBase::IteratorValue const& rhs, std::index_sequence<Is...>) {
     // implements IteratorValueRef& IteratorValueRef::operator=(IteratorValue const& rhs)
-    auto UTILS_UNUSED l = { (soa->elementAt<Is>(index) = std::get<Is>(rhs.elements), 0)... };
+    UTILS_UNUSED auto l = { (soa->elementAt<Is>(index) = std::get<Is>(rhs.elements), 0)... };
     return *this;
 }
 
@@ -701,7 +701,7 @@ typename StructureOfArraysBase<Allocator, Elements...>::IteratorValueRef&
 StructureOfArraysBase<Allocator, Elements...>::IteratorValueRef::assign(
         StructureOfArraysBase::IteratorValue&& rhs, std::index_sequence<Is...>) noexcept {
     // implements IteratorValueRef& IteratorValueRef::operator=(IteratorValue&& rhs) noexcept
-    auto UTILS_UNUSED l = {
+    UTILS_UNUSED auto l = {
             (soa->elementAt<Is>(index) = std::move(std::get<Is>(rhs.elements)), 0)... };
     return *this;
 }

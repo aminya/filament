@@ -302,7 +302,7 @@ private:
 
 void* CommandStream::allocate(size_t size, size_t alignment) noexcept {
     // make sure alignment is a power of two
-    assert_invariant(alignment && !(alignment & alignment-1));
+    assert_invariant(alignment && !(alignment & (alignment-1)));
 
     // pad the requested size to accommodate NoopCommand and alignment
     const size_t s = CustomCommand::align(sizeof(NoopCommand) + size + alignment - 1);

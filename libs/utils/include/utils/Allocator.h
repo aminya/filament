@@ -44,7 +44,7 @@ static inline P* add(P* a, T b) noexcept {
 template <typename P>
 static inline P* align(P* p, size_t alignment) noexcept {
     // alignment must be a power-of-two
-    assert_invariant(alignment && !(alignment & alignment-1));
+    assert_invariant(alignment && !(alignment & (alignment-1)));
     return (P*)((uintptr_t(p) + alignment - 1) & ~(alignment - 1));
 }
 
@@ -233,7 +233,7 @@ public:
         Node* const head = mHead;
         mHead = head ? head->next : nullptr;
         // this could indicate a use after free
-        assert_invariant(!mHead || mHead >= mBegin && mHead < mEnd);
+        assert_invariant(!mHead || (mHead >= mBegin) && (mHead < mEnd));
         return head;
     }
 

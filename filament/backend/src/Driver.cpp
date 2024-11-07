@@ -207,6 +207,8 @@ size_t Driver::getElementTypeSize(ElementType type) noexcept {
         case ElementType::HALF2:    return sizeof(half2);
         case ElementType::HALF3:    return sizeof(half3);
         case ElementType::HALF4:    return sizeof(half4);
+        default:
+            return 0;
     }
 }
 

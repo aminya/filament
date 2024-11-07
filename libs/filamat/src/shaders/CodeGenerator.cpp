@@ -258,6 +258,7 @@ utils::io::sstream& CodeGenerator::generateProlog(utils::io::sstream& out, Shade
             case Shading::SUBSURFACE:          return "SHADING_MODEL_SUBSURFACE";
             case Shading::CLOTH:               return "SHADING_MODEL_CLOTH";
             case Shading::SPECULAR_GLOSSINESS: return "SHADING_MODEL_SPECULAR_GLOSSINESS";
+            default:                           return "";
         }
     };
 
@@ -394,6 +395,8 @@ Precision CodeGenerator::getDefaultPrecision(ShaderStage stage) const {
             }
         case ShaderStage::COMPUTE:
             return Precision::HIGH;
+        default:
+            return Precision::DEFAULT;
     }
 }
 
@@ -403,6 +406,8 @@ Precision CodeGenerator::getDefaultUniformPrecision() const {
             return Precision::MEDIUM;
         case ShaderModel::DESKTOP:
             return Precision::HIGH;
+        default:
+            return Precision::DEFAULT;
     }
 }
 
@@ -950,6 +955,8 @@ utils::io::sstream& CodeGenerator::generatePushConstants(utils::io::sstream& out
                 return "int";
             case ConstantType::FLOAT:
                 return "float";
+            default:
+                return "";
         }
     };
     if (outputSpirv) {
@@ -1209,6 +1216,7 @@ char const* CodeGenerator::getConstantName(MaterialBuilder::Property property) n
         case Property::BENT_NORMAL:                 return "BENT_NORMAL";
         case Property::SPECULAR_FACTOR:             return "SPECULAR_FACTOR";
         case Property::SPECULAR_COLOR_FACTOR:       return "SPECULAR_COLOR_FACTOR";
+        default:                                    return "";
     }
 }
 
@@ -1233,6 +1241,7 @@ char const* CodeGenerator::getTypeName(UniformType type) noexcept {
         case UniformType::MAT3:   return "mat3";
         case UniformType::MAT4:   return "mat4";
         case UniformType::STRUCT: return "";
+        default:                  return "";
     }
 }
 
@@ -1250,6 +1259,7 @@ char const* CodeGenerator::getOutputTypeName(MaterialBuilder::OutputType type) n
         case MaterialBuilder::OutputType::FLOAT2: return "vec2";
         case MaterialBuilder::OutputType::FLOAT3: return "vec3";
         case MaterialBuilder::OutputType::FLOAT4: return "vec4";
+        default:                                  return "";
     }
 }
 
@@ -1298,6 +1308,8 @@ char const* CodeGenerator::getSamplerTypeName(SamplerType type, SamplerFormat fo
                 case SamplerFormat::FLOAT:  return "samplerCubeArray";
                 case SamplerFormat::SHADOW: return "samplerCubeArrayShadow";
             }
+        default:
+            return "";
     }
 }
 

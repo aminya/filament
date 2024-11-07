@@ -351,6 +351,8 @@ size_t getFormatComponentCount(TextureFormat format) noexcept {
             return 4;
         case TextureFormat::UNUSED:
             return 0;
+        default:
+            return 0;
     }
 }
 

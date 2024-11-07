@@ -219,6 +219,8 @@ static inline constexpr bool hasShaderType(ShaderStageFlags flags, ShaderStage t
             return bool(uint8_t(flags) & uint8_t(ShaderStageFlags::FRAGMENT));
         case ShaderStage::COMPUTE:
             return bool(uint8_t(flags) & uint8_t(ShaderStageFlags::COMPUTE));
+        default:
+            return false;
     }
 }
 
